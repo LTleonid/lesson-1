@@ -1,6 +1,101 @@
 input.onButtonPressed(Button.A, function () {
     player.move(-1)
 })
+input.onButtonPressed(Button.AB, function () {
+    if (1 == shoot) {
+        if (0 == player.get(LedSpriteProperty.X)) {
+            basic.showLeds(`
+                # . . . .
+                # . . . .
+                # . . . .
+                # . . . .
+                # . . . .
+                `)
+            basic.pause(500)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                # . . . .
+                `)
+            a1 = 0
+        }
+        if (1 == player.get(LedSpriteProperty.X)) {
+            basic.showLeds(`
+                . # . . .
+                . # . . .
+                . # . . .
+                . # . . .
+                . # . . .
+                `)
+            basic.pause(500)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . # . . .
+                `)
+            a2 = 0
+        }
+        if (2 == player.get(LedSpriteProperty.X)) {
+            basic.showLeds(`
+                . . # . .
+                . . # . .
+                . . # . .
+                . . # . .
+                . . # . .
+                `)
+            basic.pause(500)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . . # . .
+                `)
+            a3 = 0
+        }
+        if (3 == player.get(LedSpriteProperty.X)) {
+            basic.showLeds(`
+                . . . # .
+                . . . # .
+                . . . # .
+                . . . # .
+                . . . # .
+                `)
+            basic.pause(500)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . # .
+                `)
+            use4 = 0
+        }
+        if (4 == player.get(LedSpriteProperty.X)) {
+            basic.showLeds(`
+                . . . . #
+                . . . . #
+                . . . . #
+                . . . . #
+                . . . . #
+                `)
+            basic.pause(500)
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . #
+                `)
+            use5 = 0
+        }
+        shoot = 0
+    }
+})
 input.onButtonPressed(Button.B, function () {
     player.move(1)
 })
@@ -16,6 +111,12 @@ let er1 = 0
 let e1: game.LedSprite = null
 let enemy = 0
 let player: game.LedSprite = null
+let a1: number;
+let a2: number;
+let a3: number;
+let use4: number;
+let use5: number;
+let shoot: number;
 game.setScore(0)
 player = game.createSprite(2, 5)
 basic.forever(function () {
