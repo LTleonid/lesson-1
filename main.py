@@ -2,114 +2,62 @@ def on_button_pressed_a():
     player.move(-1)
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
+def on_button_pressed_ab():
+    global laser, laserr
+    laser = game.create_sprite(player.get(LedSpriteProperty.X), 2)
+    laserr = 1
+input.on_button_pressed(Button.AB, on_button_pressed_ab)
+
 def on_button_pressed_b():
     player.move(1)
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 er5 = 0
-e5: game.LedSprite = None
 er4 = 0
-e4: game.LedSprite = None
 er3 = 0
-e3: game.LedSprite = None
 er2 = 0
-e2: game.LedSprite = None
 er1 = 0
-e1: game.LedSprite = None
 enemy = 0
+e5: game.LedSprite = None
+e4: game.LedSprite = None
+e3: game.LedSprite = None
+e2: game.LedSprite = None
+e1: game.LedSprite = None
+laser: game.LedSprite = None
+laserr = 0
 player: game.LedSprite = None
 game.set_score(0)
 player = game.create_sprite(2, 5)
-
-if 1 == shoot:
-    if 0 == player.get(LedSpriteProperty.X):
-        basic.show_leds("""
-            # . . . .
-                        # . . . .
-                        # . . . .
-                        # . . . .
-                        # . . . .
-        """)
-        basic.pause(500)
-        basic.show_leds("""
-            . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . .
-                        # . . . .
-        """)
-        a1 = 0
-    if 1 == player.get(LedSpriteProperty.X):
-        basic.show_leds("""
-            . # . . .
-                        . # . . .
-                        . # . . .
-                        . # . . .
-                        . # . . .
-        """)
-        basic.pause(500)
-        basic.show_leds("""
-            . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . .
-                        . # . . .
-        """)
-        a2 = 0
-    if 2 == player.get(LedSpriteProperty.X):
-        basic.show_leds("""
-            . . # . .
-                        . . # . .
-                        . . # . .
-                        . . # . .
-                        . . # . .
-        """)
-        basic.pause(500)
-        basic.show_leds("""
-            . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . .
-                        . . # . .
-        """)
-        a3 = 0
-    if 3 == player.get(LedSpriteProperty.X):
-        basic.show_leds("""
-            . . . # .
-                        . . . # .
-                        . . . # .
-                        . . . # .
-                        . . . # .
-        """)
-        basic.pause(500)
-        basic.show_leds("""
-            . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . # .
-        """)
-        use4 = 0
-    if 4 == player.get(LedSpriteProperty.X):
-        basic.show_leds("""
-            . . . . #
-                        . . . . #
-                        . . . . #
-                        . . . . #
-                        . . . . #
-        """)
-        basic.pause(500)
-        basic.show_leds("""
-            . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . .
-                        . . . . #
-        """)
-        use5 = 0
-    shoot = 0
+laserr = 0
 
 def on_forever():
+    basic.pause(100)
+    if laserr == 1:
+        basic.pause(200)
+        laser.change(LedSpriteProperty.Y, 1)
+    if laser.is_touching(e1):
+        e1.delete()
+        laser.delete()
+        game.add_score(10)
+    elif laser.is_touching(e2):
+        e1.delete()
+        laser.delete()
+        game.add_score(10)
+    elif laser.is_touching(e3):
+        e1.delete()
+        laser.delete()
+        game.add_score(10)
+    elif laser.is_touching(e4):
+        e1.delete()
+        laser.delete()
+        game.add_score(10)
+    elif laser.is_touching(e5):
+        e1.delete()
+        laser.delete()
+        game.add_score(10)
+basic.forever(on_forever)
+
+def on_forever2():
     global enemy, e1, er1, e2, er2, e3, er3, e4, er4, e5, er5
     basic.pause(1000)
     enemy = randint(0, 4)
@@ -129,9 +77,9 @@ def on_forever():
         e5 = game.create_sprite(enemy, 0)
         er5 = 1
     basic.pause(500)
-basic.forever(on_forever)
+basic.forever(on_forever2)
 
-def on_forever2():
+def on_forever3():
     basic.pause(500)
     if er1 == 1:
         e1.change(LedSpriteProperty.Y, 1)
@@ -158,4 +106,4 @@ def on_forever2():
         if e5.get(LedSpriteProperty.Y) == 4:
             e5.delete()
             game.game_over()
-basic.forever(on_forever2)
+basic.forever(on_forever3)
